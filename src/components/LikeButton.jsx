@@ -3,14 +3,17 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import { toggleLike } from "@/app/lib/actions";
 
-const LikeButton = () => {
+const LikeButton = ({mediaLikes}) => {
 const [isLiked, setIsLiked] = useState(false);
-const [compteur, setCompteur] = useState(0);
+const [compteur, setCompteur] = useState(mediaLikes);
 
-const handleLike = () => {
+const handleLike = async() => {
+    const newCount = compteur + (isLiked ? -1 : 1);
     setIsLiked(!isLiked);
     setCompteur(prevCount => prevCount + (isLiked ? -1 : 1));
+    await toggleLike(media.id, newCount);
 };
     return (
         <LikeSection>

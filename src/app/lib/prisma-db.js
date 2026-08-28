@@ -1,6 +1,8 @@
-import { PrismaClient } from '../generated/prisma/client';
+import { PrismaClient } from '../../generated/prisma/client';
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaBetterSqlite3('file:./dev.db');
+const prisma = new PrismaClient({ adapter });
 
 export const getAllPhotographers = () => prisma.photographer.findMany();
 
