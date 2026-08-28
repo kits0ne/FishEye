@@ -6,7 +6,7 @@ import Logo from '@/components/Logo'
 import PhotographerLink from '@/components/PhotographerLink'
 import PhotographerHeader from '@/components/PhotographerHeader'
 import PictureFrame from '@/components/PictureFrame'
-import SearchBar from '@/components/SearchBar'
+import FormTextArea from '@/components/FormTextArea'
 import UserPicture from '@/components/UserPicture'
 
 import { getPhotographer } from '@/app/lib/prisma-db'
@@ -25,7 +25,7 @@ export default function Home() {
             <PhotographerLink />
             <PhotographerHeader />
             <PictureFrame />
-            <SearchBar />
+            <FormTextArea />
             <UserPicture photographer={photographerId} />
         </div>
     );

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 const UserPicture = ({ photographer }) => {
-    const profilePicture = photographer?.portrait || '/Sport_2000_with_8.jpg';
+    const profilePicture = photographer?.portrait || '/Travel_HillsideColor.jpg';
     return (
         <PPContainer>
             <Image 
