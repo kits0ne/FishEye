@@ -37,7 +37,7 @@ export default LikeButton;
 const LikeSection = styled.div`
 display: flex;
 justify-content: space-between;
-width: 50px;
+width: 65px;
 `;
 
 const LikeCount = styled.span`

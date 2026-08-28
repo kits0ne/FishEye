@@ -5,6 +5,7 @@ import LikeButton from '@/components/LikeButton'
 import Logo from '@/components/Logo'
 import PhotographerLink from '@/components/PhotographerLink'
 import PhotographerHeader from '@/components/PhotographerHeader'
+import PhotographerProfile from '@/components/PhotographerProfile'
 import PictureFrame from '@/components/PictureFrame'
 import FormTextArea from '@/components/FormTextArea'
 import UserPicture from '@/components/UserPicture'
@@ -12,8 +13,8 @@ import UserPicture from '@/components/UserPicture'
 import { getPhotographer } from '@/app/lib/prisma-db'
 import { getAllMediasForPhotographer } from '@/app/lib/prisma-db'
 
-const photographerId = getPhotographer(82);
-const medias = getAllMediasForPhotographer(photographerId);
+const photographerId = await getPhotographer(82);
+const medias = await getAllMediasForPhotographer(photographerId);
 
 export default function Home() {
     return (
@@ -24,6 +25,7 @@ export default function Home() {
             <Logo />
             <PhotographerLink />
             <PhotographerHeader />
+            <PhotographerProfile />
             <PictureFrame />
             <FormTextArea />
             <UserPicture photographer={photographerId} />
