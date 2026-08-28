@@ -1,29 +1,89 @@
+"use client";
+
+import { useState } from "react";
 import styled from "styled-components";
+import Image from "next/image";
+
+const options = ["Popularité", "Date", "Titre"];
 
 const DropDown = () => {
-    return (
-        <DropDownMenu>
-            <option value="option1">Popularité</option>
-            <option value="option2">Date</option>
-            <option value="option3">Titre</option>
-        </DropDownMenu>
-    );
+const [isOpen, setIsOpen] = useState(false);
+const [selected, setSelected] = useState(options[0]);
+
+const handleSelect = (option) => {
+    setSelected(option);
+    setIsOpen(false);
+};
+return (
+    <DropDownWrapper>
+    <DropDownHeader onClick={() => setIsOpen(!isOpen)} $isOpen={isOpen}>
+        {selected.at(0).toUpperCase() + selected.slice(1)}
+        <Arrow $isOpen={isOpen}>
+            <Image
+                src="/DropDownFleche.png"
+                alt="Arrow"
+                width={16}
+                height={16}
+            />
+        </Arrow>
+    </DropDownHeader>
+
+    {isOpen && (
+        <OptionsList>
+        {options
+            .filter((option) => option !== selected)
+            .map((option) => (
+                <Option key={option} onClick={() => handleSelect(option)}>
+                    {option}
+                </Option>
+            ))
+        }
+        </OptionsList>
+    )}
+    </DropDownWrapper>
+);
 };
 
 export default DropDown;
 
-const DropDownMenu = styled.select`
-    background-color: #901c1c;
-    width: 170px;
-    height: 69px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: 700;
-    padding: 0 15px;
-    &:focus {
-        outline: none;
-        border: 2px solid #D3573C;
-    }
+
+const DropDownWrapper = styled.div`
+position: relative;
+width: 170px;
+height: 69px;
+font-weight: 700;
+`;
+
+const DropDownHeader = styled.div`
+background-color: #901c1c;
+color: white;
+padding: 20px;
+border-radius: ${({ $isOpen }) => ($isOpen ? "5px 5px 0 0" : "5px")};
+display: flex;
+justify-content: space-between;
+align-items: center;
+cursor: pointer;
+`;
+
+const Arrow = styled.span`
+transform: rotate(${({ $isOpen }) => ($isOpen ? "180deg" : "0deg")});
+transition: transform 0.2s ease;
+`;
+
+const OptionsList = styled.div`
+position: absolute;
+top: -1;
+left: 0;
+width: 100%;
+background-color: #901c1c;
+border-radius: 0 0 5px 5px;
+overflow: hidden;
+`;
+
+const Option = styled.div`
+color: white;
+margin: 0 20px;
+padding: 20px 0;
+cursor: pointer;
+border-top: 1px solid #ffffff;
 `;
