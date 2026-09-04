@@ -13,15 +13,13 @@ const PhotographerProfile = ({ photographer }) => {
 export default PhotographerProfile;
 
 const PhotographerProfileContainer = styled.div`
-    width : 358px;
     height: 200px;
     display: flex;
     flex-direction: column;
-    justify-content: left;
 `;
 
 const Name = styled.h1`
-    font-size: 34px;
+    font-size: 64px;
     color: #D3573C;
 `;
 

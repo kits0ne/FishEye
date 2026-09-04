@@ -24,7 +24,7 @@ export default function Home() {
             <LikeButton mediaLikes={medias[0]?.likes || 5} />
             <Logo />
             <PhotographerLink photographer={photographerId} />
-            <PhotographerHeader />
+            <PhotographerHeader photographer={photographerId} />
             <PhotographerProfile photographer={photographerId} />
             <PictureFrame />
             <FormTextArea />
