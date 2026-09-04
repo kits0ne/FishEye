@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const PhotographerProfile = () => {
+const PhotographerProfile = ({ photographer }) => {
     return (
         <PhotographerProfileContainer>
-            <Name>Photographer Profile</Name>
-            <Place>This is a simple photographer profile component.</Place>
-            <Description>Description of the photographer.</Description>
+            <Name>{photographer.name}</Name>
+            <Place>{photographer.city}, {photographer.country}</Place>
+            <Description>{photographer.tagline}</Description>
         </ PhotographerProfileContainer>
     );
 };
@@ -27,9 +27,11 @@ const Name = styled.h1`
 
 const Place = styled.p`
     font-size: 24px;
+    padding-bottom: 10px;
 `;
 
 const Description = styled.p`
     font-size: 18px;
     color: #525252;
+    height: 100%;
 `;

@@ -14,7 +14,7 @@ import { getPhotographer } from '@/app/lib/prisma-db'
 import { getAllMediasForPhotographer } from '@/app/lib/prisma-db'
 
 const photographerId = await getPhotographer(82);
-const medias = await getAllMediasForPhotographer(photographerId);
+const medias = await getAllMediasForPhotographer(82);
 
 export default function Home() {
     return (
@@ -23,9 +23,9 @@ export default function Home() {
             <DropDown />
             <LikeButton mediaLikes={medias[0]?.likes || 5} />
             <Logo />
-            <PhotographerLink />
+            <PhotographerLink photographer={photographerId} />
             <PhotographerHeader />
-            <PhotographerProfile />
+            <PhotographerProfile photographer={photographerId} />
             <PictureFrame />
             <FormTextArea />
             <UserPicture photographer={photographerId} />

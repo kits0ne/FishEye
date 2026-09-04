@@ -6,7 +6,7 @@ const UserPicture = ({ photographer }) => {
     return (
         <PPContainer>
             <Image 
-                src={profilePicture} 
+                src={`/${profilePicture}`} 
                 alt="Profile Picture" 
                 width={100} 
                 height={100} 
@@ -18,8 +18,8 @@ const UserPicture = ({ photographer }) => {
 export default UserPicture;
 
 const PPContainer = styled.div`
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     overflow: hidden;
     display: flex; 
