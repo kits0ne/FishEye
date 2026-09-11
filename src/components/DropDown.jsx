@@ -52,12 +52,13 @@ position: relative;
 width: 170px;
 height: 69px;
 font-weight: 700;
+padding-top: 0.8rem;
 `;
 
 const DropDownHeader = styled.div`
 background-color: #901c1c;
 color: white;
-padding: 20px;
+padding: 1rem;
 border-radius: ${({ $isOpen }) => ($isOpen ? "5px 5px 0 0" : "5px")};
 display: flex;
 justify-content: space-between;
@@ -82,8 +83,8 @@ overflow: hidden;
 
 const Option = styled.div`
 color: white;
-margin: 0 20px;
-padding: 20px 0;
+margin: 0 1rem;
+padding: 0.8rem 0;
 cursor: pointer;
 border-top: 1px solid #ffffff;
 `;

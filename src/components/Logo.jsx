@@ -5,14 +5,14 @@ import Link from "next/link";
 const Logo = () => {
     return (
         <HomeLink>
-            <Link href="/">
-                <Image 
-                src="/logo.png" 
+            <PhotographerLink href="/">
+                <LogoImg 
+                    src="/logo.png" 
                     alt="Logo" 
                     width={100} 
                     height={100} 
                 />
-            </Link>
+            </PhotographerLink>
         </HomeLink>
     );
 };
@@ -23,4 +23,12 @@ const HomeLink = styled.div`
     display: flex;
     align-items: center;
     text-decoration: none;
+`
+
+const PhotographerLink = styled(Link)`
+    width: 100%;
+`
+
+const LogoImg = styled(Image)`
+    width: 100%;
 `

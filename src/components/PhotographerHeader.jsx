@@ -21,7 +21,7 @@ const PhotographerBanner = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 100%;
     height: 313px;
     background-color: #FAFAFA;
     padding: 50px;
@@ -30,4 +30,5 @@ const PhotographerBanner = styled.div`
 
 const ProfilePicContainer = styled.div`
     width: 200px;
+    height: 200px;
 `;

@@ -1,34 +1,54 @@
-import styles from "./page.module.css";
-import CTA from '@/components/CTA'
-import DropDown from '@/components/DropDown'
-import LikeButton from '@/components/LikeButton'
+import styled from 'styled-components';
 import Logo from '@/components/Logo'
 import PhotographerLink from '@/components/PhotographerLink'
-import PhotographerHeader from '@/components/PhotographerHeader'
-import PhotographerProfile from '@/components/PhotographerProfile'
-import PictureFrame from '@/components/PictureFrame'
-import FormTextArea from '@/components/FormTextArea'
-import UserPicture from '@/components/UserPicture'
 
-import { getPhotographer } from '@/app/lib/prisma-db'
-import { getAllMediasForPhotographer } from '@/app/lib/prisma-db'
+import { getAllPhotographers } from '@/app/lib/prisma-db'
 
-const photographerId = await getPhotographer(82);
-const medias = await getAllMediasForPhotographer(82);
+const photographers = await getAllPhotographers();
 
 export default function Home() {
     return (
-        <div className={styles.componentsRegistry}>
-            <CTA inscription="Contactez-moi" />
-            <DropDown />
-            <LikeButton mediaLikes={medias[0]?.likes || 5} />
-            <Logo />
-            <PhotographerLink photographer={photographerId} />
-            <PhotographerHeader photographer={photographerId} />
-            <PhotographerProfile photographer={photographerId} />
-            <PictureFrame />
-            <FormTextArea />
-            <UserPicture photographer={photographerId} />
-        </div>
+        <IndexContainer>
+            <IndexBanner>
+                <LogoWrapper><Logo /></LogoWrapper>
+                <IndexTitle>Nos photographes</IndexTitle>
+            </IndexBanner>
+            <PhotographersPresentationGrid>
+                {photographers.map((photographer) => (
+                    <PhotographerLink key={photographer.id} photographer={photographer} />
+                ))}
+            </PhotographersPresentationGrid>
+        </IndexContainer>
     );
 }
+
+const IndexContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const LogoWrapper = styled.div`
+    width: 200px;
+`;
+
+const IndexBanner = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6rem;
+    height: 8rem;
+`;
+
+const IndexTitle = styled.h1`
+    font-size: 36px;
+    color: #901C1C;
+`;
+
+const PhotographersPresentationGrid = styled.div`
+    padding: 5rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    gap: 7rem;
+    justify-items: center;
+    align-items: center;
+`;

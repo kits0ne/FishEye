@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import UserPicture from './UserPicture';
+import Link from 'next/link';
 
 const PhotographerLink = ({ photographer }) => {
     return (
         <PhotographerLinkContainer>
-            <ProfilePictureContainer>
-                <UserPicture photographer={photographer} />
-            </ProfilePictureContainer>
-            <PhotographerInfoContainer>
+            <PhotographerLinkClic href={`/profil/${photographer.id}`} passHref>
+                <ProfilePictureContainer>
+                    <UserPicture photographer={photographer} />
+                </ProfilePictureContainer>
                 <Name>{photographer.name}</Name>
+            </PhotographerLinkClic>
+            <PhotographerInfoContainer>
                 <Place>{photographer.city}, {photographer.country}</Place>
                 <Description>{photographer.tagline}</Description>
                 <Price>{photographer.price}€/jour</Price>
@@ -19,28 +22,41 @@ const PhotographerLink = ({ photographer }) => {
 
 export default PhotographerLink;
 
-const PhotographerLinkContainer = styled.div`
+const PhotographerLinkContainer = styled.article`
     display: flex;
     flex-direction: column;
-    width: 33%;
-    height: 310px;
+    width: 100%;
+    min-height: 310px;
     align-items: center;
 `;
 
+const PhotographerLinkClic = styled(Link)`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+`
+
 const ProfilePictureContainer = styled.div`
     width: 200px;
+    height: 200px;
 `;
 
 const PhotographerInfoContainer = styled.div`
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
     align-items: center;
 `;
 
 const Name = styled.h2`
     font-size: 36px;
     color: #D3573C;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; // ajoute "..." si ça dépasse
+    max-width: 100%;
+    padding-top: 20px;
 `;
 
 const Place = styled.p`
