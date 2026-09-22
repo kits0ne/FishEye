@@ -10,7 +10,7 @@ const Logo = () => {
                 aria-label="Retour à la page d'accueil"
             >
                 <LogoImg 
-                    src="/logo.png" 
+                    src="/Logo.png" 
                     alt="" 
                     width={100} 
                     height={100} 
