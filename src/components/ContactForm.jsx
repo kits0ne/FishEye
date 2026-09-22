@@ -80,15 +80,15 @@ const FormWrapper = styled.form`
     background-color: #DB8876;
     padding: 2rem;
     width: 670px;
-    height: 900px;
+    max-width: 90vw;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
     color: black;
 `;
 
-const Title = styled.h2`
-    font-size: 4vw;
+const Title = styled.h1`
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
     margin-bottom: 1.5rem;
 `;
 

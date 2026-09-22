@@ -1,61 +1,99 @@
+// components/DropDown.jsx
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 
 const DropDown = ({ options = ["Popularité", "Date", "Titre"], onSortChange }) => {
-const [isOpen, setIsOpen] = useState(false);
-const [selected, setSelected] = useState(options[0]);
+    const [isOpen, setIsOpen] = useState(false);
+    const [selected, setSelected] = useState(options[0]);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const headerRef = useRef(null);
 
-const handleSelect = (option) => {
-    setSelected(option);
-    setIsOpen(false);
-    onSortChange?.(option);
-};
-return (
-    <DropDownWrapper>
-    <DropDownHeader 
-        as="button" 
-        type="button"
-        onClick={() => setIsOpen(!isOpen)} 
-        $isOpen={isOpen} 
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        aria-label={`Trier par ${selected}`}
-        >
-        {selected.at(0).toUpperCase() + selected.slice(1)}
-        <Arrow $isOpen={isOpen}>
-            <Image
-                src="/DropDownFleche.png"
-                alt=""
-                width={16}
-                height={16}
-            />
-        </Arrow>
-    </DropDownHeader>
+    const visibleOptions = options.filter((option) => option !== selected);
 
-    {isOpen && (
-        <OptionsList role="listbox">
-        {options
-            .filter((option) => option !== selected)
-            .map((option) => (
-                <Option 
-                    key={option} 
-                    onClick={() => handleSelect(option)} 
-                    role="option"
-                    tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelect(option); }}
-                    aria-selected={option === selected}
-                >
-                    {option}
-                </Option>
-            ))
+    const handleSelect = (option) => {
+        setSelected(option);
+        setIsOpen(false);
+        onSortChange?.(option);
+        headerRef.current?.focus();
+    };
+
+    const openList = () => {
+        setIsOpen(true);
+        setActiveIndex(0);
+    };
+
+    const handleTriggerKeyDown = (e) => {
+        if (!isOpen) {
+            if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openList();
+            }
+            return;
         }
-        </OptionsList>
-    )}
-    </DropDownWrapper>
-);
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setActiveIndex((prev) => (prev + 1) % visibleOptions.length);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setActiveIndex((prev) => (prev - 1 + visibleOptions.length) % visibleOptions.length);
+        } else if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleSelect(visibleOptions[activeIndex]);
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            setIsOpen(false);
+        }
+    };
+
+    const activeOptionId = isOpen && visibleOptions.length > 0
+        ? `sort-option-${visibleOptions[activeIndex]}`
+        : undefined;
+
+    return (
+        <DropDownWrapper>
+            <DropDownHeader 
+                as="button" 
+                type="button"
+                ref={headerRef}
+                onClick={() => (isOpen ? setIsOpen(false) : openList())}
+                onKeyDown={handleTriggerKeyDown}
+                $isOpen={isOpen} 
+                aria-haspopup="listbox"
+                aria-expanded={isOpen}
+                aria-labelledby="sort-label sort-current-value"
+                aria-activedescendant={activeOptionId}
+            >
+                <span id="sort-current-value">
+                    {selected.at(0).toUpperCase() + selected.slice(1)}
+                </span>
+                <Arrow $isOpen={isOpen}>
+                    <Image src="/DropDownFleche.png" alt="" width={16} height={16} />
+                </Arrow>
+            </DropDownHeader>
+
+            {isOpen && (
+                <OptionsList role="listbox" aria-labelledby="sort-label">
+                    {visibleOptions.map((option, i) => (
+                        <Option 
+                            key={option}
+                            id={`sort-option-${option}`}
+                            onClick={() => handleSelect(option)}
+                            onMouseEnter={() => setActiveIndex(i)}
+                            role="option"
+                            aria-selected={i === activeIndex}
+                            $active={i === activeIndex}
+                        >
+                            {option}
+                        </Option>
+                    ))}
+                </OptionsList>
+            )}
+        </DropDownWrapper>
+    );
 };
 
 export default DropDown;
@@ -107,8 +145,4 @@ margin: 0 1rem;
 padding: 0.8rem 0;
 cursor: pointer;
 border-top: 1px solid #ffffff;
-&:focus-visible {
-    outline: 2px solid #FFEA94;
-    outline-offset: -2px;
-}
 `;

@@ -59,6 +59,7 @@ const PictureFrame = ({ media, allMedias, index, onLikeChange }) => {
                         src={`/${media.video}`} 
                         width={300} 
                         height={200} 
+                        aria-hidden="true"
                     />
                 ) : (
                     <Image 
@@ -75,12 +76,12 @@ const PictureFrame = ({ media, allMedias, index, onLikeChange }) => {
                 </PictureName>
                 <LikeButton likes={media.likes} entityId={media.id} onToggle={toggleLike} label="média" onLikeChange={onLikeChange}/>
             </PictureData>
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} titleId="media-viewer-title">
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} titleId="media-viewer-title" closeLabel="Fermer la visionneuse média">
                 <ModalWrapper>
                     <VisuallyHiddenTitle id="media-viewer-title">
                         Visionneuse média : {currentMedia.title}
                     </VisuallyHiddenTitle>
-                    <PreviousButton onClick={handlePrevious} aria-label="Média précédent">
+                    <PreviousButton onClick={handlePrevious} aria-label="Image précédente">
                         &lt;
                     </PreviousButton>
                     {currentMedia.video ? (
@@ -90,22 +91,23 @@ const PictureFrame = ({ media, allMedias, index, onLikeChange }) => {
                                     src={`/${currentMedia.video}`} 
                                     controls
                                 />
-                                <ModalTitle>{currentMedia.title}</ModalTitle>
                             </ImageWrapper>
+                            <ModalTitle>{currentMedia.title}</ModalTitle>
                         </MediaColumn>
                     ) : (
                         <MediaColumn>
                             <ImageWrapper>
                                 <Image 
                                     src={`/${currentMedia.image}`}
-                                    alt={currentMedia.title} 
+                                    alt=""
                                     fill
+                                    sizes="(max-width: 900px) 70vw, 900px"
                                 />  
                             </ImageWrapper>
                             <ModalTitle>{currentMedia.title}</ModalTitle>
                         </MediaColumn>
                     )}
-                    <NextButton onClick={handleNext} aria-label="Média suivant">
+                    <NextButton onClick={handleNext} aria-label="Image suivante">
                         &gt;
                     </NextButton>
                 </ModalWrapper>
@@ -202,13 +204,22 @@ const MediaColumn = styled.div`
 
 const ImageWrapper = styled.div`
     position: relative;
-    width: 70vw;
-    height: 80vh;
+    width: min(70vw, 900px);
+    height: min(85vh, 800px);
     overflow: hidden;
     border-radius: 5px;
     & img {
         border-radius: 5px;
         object-fit: cover;
+    }
+        & video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 5px;
     }
 `;
 

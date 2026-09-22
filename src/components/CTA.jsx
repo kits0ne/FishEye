@@ -14,7 +14,7 @@ const CTA = ({ inscription, photographer }) => {
             <CTAButton onClick={() => setIsModalOpen(true)}>
                 {inscription}
             </CTAButton>
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} closeButtonColor="#ffffff" titleId="contact-title">
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} closeButtonColor="#ffffff" titleId="contact-title" closeLabel="Fermer le formulaire de contact">
                 <ContactForm photographerName={photographer.name} onClose={() => setIsModalOpen(false)} />
             </Modal>
         </>

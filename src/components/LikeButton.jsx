@@ -18,13 +18,13 @@ const LikeButton = ({ likes, entityId, onToggle, label = "média", onLikeChange 
 
     return (
         <LikeSection>
-            <LikeCount>
+            <LikeCount aria-hidden="true">
                 {count}
             </LikeCount>
             <LikeButtonStyled 
                 onClick={handleLike}
                 aria-pressed={isLiked}
-                aria-label={isLiked ? `Retirer le like sur ce ${label}` : `Ajouter un like sur ce ${label}`}
+                aria-label={`${count} likes. ${isLiked ? `Retirer le like sur ce ${label}` : `Ajouter un like sur ce ${label}`}`}
             >
                 <Image
                     src={isLiked ? "/heart-solid-full.svg" : "/heart-regular-full.svg"}

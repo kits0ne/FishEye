@@ -22,7 +22,7 @@ export default function Home() {
     );
 }
 
-const IndexContainer = styled.div`
+const IndexContainer = styled.header`
     display: flex;
     flex-direction: column;
 `;

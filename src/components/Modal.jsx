@@ -4,7 +4,7 @@
 import styled from 'styled-components';
 import { useEffect, useRef } from 'react';
 
-const Modal = ({ isOpen, onClose, children, closeButtonColor = '#901C1C', titleId }) => {
+const Modal = ({ isOpen, onClose, children, closeButtonColor = '#901C1C', titleId, closeLabel = 'Fermer' }) => {
     const modalContentRef = useRef(null);
     const previouslyFocusedElement = useRef(null);
     
@@ -81,7 +81,7 @@ const Modal = ({ isOpen, onClose, children, closeButtonColor = '#901C1C', titleI
                 aria-modal="true"
                 aria-labelledby={titleId}
             >  
-                <CloseButton onClick={onClose} $closeButtonColor={closeButtonColor} aria-label="Close modal">
+                <CloseButton onClick={onClose} $closeButtonColor={closeButtonColor} aria-label={closeLabel}>
                     ×
                 </CloseButton>
                 {children}    
@@ -99,7 +99,7 @@ const Overlay = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 2;
 `;
 
 const ModalContent = styled.div`
@@ -108,8 +108,8 @@ const ModalContent = styled.div`
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    max-width: 70vw;
-    max-height: 80vh;
+    max-width: 90vw;
+    max-height: 100vh;
     overflow-y: auto;
 `;
 

@@ -81,7 +81,7 @@ const VisuallyHiddenAnnouncement = styled.span`
 `;
 
 const PicturePresentationGrid = styled.div`
-    padding: 5rem 0;
+    padding: 5rem 0 8rem 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
     gap: 7rem;

@@ -10,7 +10,10 @@ const PhotographerEncart = ({ photographer, allMedias }) => {
     return (
         <EncartFooter>
             <TotalLikes aria-live="polite">
-                {totalLikes} 
+                <span aria-hidden="true">
+                    {totalLikes}
+                </span> 
+                <VisuallyHiddenText>{totalLikes} likes au total</VisuallyHiddenText>
                 <Image
                     src={"/heart-solid-full-black.svg"}
                     alt=""
@@ -29,7 +32,7 @@ const EncartFooter = styled.footer`
     position: fixed;
     bottom: 0;
     right: 2rem;
-    z-index: 10;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,4 +58,16 @@ const Price = styled.p`
     color: black;
     font-weight: 700;
     margin: 0;
+`;
+
+const VisuallyHiddenText = styled.span`
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 `;

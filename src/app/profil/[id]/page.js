@@ -20,11 +20,6 @@ export async function generateMetadata({ params }) {
     return {
         title: `${photographer.name} | FishEye`,
         description: photographer.tagline,
-        openGraph: {
-            title: photographer.name,
-            description: photographer.tagline,
-            images: [`/${photographer.portrait}`],
-        },
     }
 }
 

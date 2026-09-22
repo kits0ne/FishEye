@@ -65,16 +65,16 @@ const Name = styled.h2`
 `;
 
 const Place = styled.p`
-    font-size: 13px;
+    font-size: 0.8125rem;
     color: #901C1C;
 `;
 
 const Description = styled.p`
-    font-size: 10px;
+    font-size: 0.625rem;
     color: #000000;
 `;
 
 const Price = styled.p`
-    font-size: 9px;
+    font-size: 0.5625rem;
     color: #757575;
 `;
