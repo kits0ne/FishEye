@@ -7,7 +7,7 @@ const PhotographerHeader = ({photographer}) => {
     return (
         <PhotographerBanner>
             <PhotographerProfile photographer={photographer} />
-            <CTA inscription="Contactez-moi" />
+            <CTA inscription="Contactez-moi" photographer={photographer} />
             <ProfilePicContainer>
                 <UserPicture photographer={photographer} />
             </ProfilePicContainer>
@@ -17,7 +17,7 @@ const PhotographerHeader = ({photographer}) => {
 
 export default PhotographerHeader;
 
-const PhotographerBanner = styled.div`
+const PhotographerBanner = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;

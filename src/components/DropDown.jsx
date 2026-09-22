@@ -16,12 +16,20 @@ const handleSelect = (option) => {
 };
 return (
     <DropDownWrapper>
-    <DropDownHeader onClick={() => setIsOpen(!isOpen)} $isOpen={isOpen}>
+    <DropDownHeader 
+        as="button" 
+        type="button"
+        onClick={() => setIsOpen(!isOpen)} 
+        $isOpen={isOpen} 
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        aria-label={`Trier par ${selected}`}
+        >
         {selected.at(0).toUpperCase() + selected.slice(1)}
         <Arrow $isOpen={isOpen}>
             <Image
                 src="/DropDownFleche.png"
-                alt="Arrow"
+                alt=""
                 width={16}
                 height={16}
             />
@@ -29,11 +37,18 @@ return (
     </DropDownHeader>
 
     {isOpen && (
-        <OptionsList>
+        <OptionsList role="listbox">
         {options
             .filter((option) => option !== selected)
             .map((option) => (
-                <Option key={option} onClick={() => handleSelect(option)}>
+                <Option 
+                key={option} 
+                onClick={() => handleSelect(option)} 
+                role="option"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelect(option); }}
+                aria-selected={false}
+                >
                     {option}
                 </Option>
             ))
@@ -64,6 +79,10 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 cursor: pointer;
+&:focus-visible {
+    outline: 3px solid #D3573C;
+    outline-offset: 2px;
+}
 `;
 
 const Arrow = styled.span`
@@ -87,4 +106,8 @@ margin: 0 1rem;
 padding: 0.8rem 0;
 cursor: pointer;
 border-top: 1px solid #ffffff;
+&:focus-visible {
+    outline: 2px solid #FFEA94;
+    outline-offset: -2px;
+}
 `;

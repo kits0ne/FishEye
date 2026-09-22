@@ -7,7 +7,7 @@ const PhotographerLink = ({ photographer }) => {
         <PhotographerLinkContainer>
             <PhotographerLinkClic href={`/profil/${photographer.id}`} passHref>
                 <ProfilePictureContainer>
-                    <UserPicture photographer={photographer} />
+                    <UserPicture photographer={photographer} decorative />
                 </ProfilePictureContainer>
                 <Name>{photographer.name}</Name>
             </PhotographerLinkClic>
@@ -36,6 +36,11 @@ const PhotographerLinkClic = styled(Link)`
     flex-direction: column;
     align-items: center;
     text-decoration: none;
+    &:focus-visible {
+        outline: 3px solid #901C1C;
+        outline-offset: 4px;
+        border-radius: 4px;
+    }
 `
 
 const ProfilePictureContainer = styled.div`
@@ -54,7 +59,7 @@ const Name = styled.h2`
     color: #D3573C;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; // ajoute "..." si ça dépasse
+    text-overflow: ellipsis;
     max-width: 100%;
     padding-top: 20px;
 `;

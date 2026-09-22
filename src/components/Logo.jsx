@@ -5,10 +5,13 @@ import Link from "next/link";
 const Logo = () => {
     return (
         <HomeLink>
-            <PhotographerLink href="/">
+            <PhotographerLink 
+                href="/"
+                aria-label="Retour à la page d'accueil"
+            >
                 <LogoImg 
                     src="/logo.png" 
-                    alt="Logo" 
+                    alt="" 
                     width={100} 
                     height={100} 
                 />
@@ -27,6 +30,11 @@ const HomeLink = styled.div`
 
 const PhotographerLink = styled(Link)`
     width: 100%;
+    &:focus-visible {
+        outline: 3px solid #901C1C;
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
 `
 
 const LogoImg = styled(Image)`

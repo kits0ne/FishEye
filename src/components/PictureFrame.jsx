@@ -2,8 +2,8 @@
 
 import styled from 'styled-components';
 import Image from 'next/image';
-import ImgModal from '@/components/ImgModal'
-import { useState } from 'react';
+import Modal from '@/components/Modal'
+import { useState, useEffect, useCallback } from 'react';
 
 import LikeButton from '@/components/LikeButton'
 
@@ -13,25 +13,51 @@ const PictureFrame = ({ media, allMedias, index }) => {
 
     const currentMedia = allMedias[currentMediaIndex];
 
-    const handlePrevious = () => {
+    const handlePrevious = useCallback(() => {
         setCurrentMediaIndex((prev) => (prev === 0 ? allMedias.length - 1 : prev - 1));
-    }
+    }, [allMedias.length]);
 
-    const handleNext = () => {
+    const handleNext = useCallback(() => {
         setCurrentMediaIndex((prev) => (prev === allMedias.length - 1 ? 0 : prev + 1));
-    }
+    }, [allMedias.length]);
+
+    useEffect(() => {
+        if (!isModalOpen) return;
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'ArrowLeft') {
+                handlePrevious();
+            } else if (e.key === 'ArrowRight') {
+                handleNext();
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        };
+    }, [isModalOpen, handlePrevious, handleNext]);
 
     return (
         <PictureFrameContainer>
-            <PhotographyFrame onClick={() =>{ setCurrentMediaIndex(index); setIsModalOpen(true);}}>
+            <PhotographyFrame 
+                onClick={() =>{ setCurrentMediaIndex(index); setIsModalOpen(true);}}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        setCurrentMediaIndex(index);
+                        setIsModalOpen(true);
+                    }
+                }}
+                aria-label={`Agrandir ${media.title}`}
+            >
                 {media.video ? (
                     <video 
                         src={`/${media.video}`} 
                         width={300} 
                         height={200} 
-                        controls
-                        autoPlay
-                        muted
                     />
                 ) : (
                     <Image 
@@ -48,33 +74,42 @@ const PictureFrame = ({ media, allMedias, index }) => {
                 </PictureName>
                 <LikeButton mediaLikes={media.likes} mediaId={media.id} />
             </PictureData>
-            <ImgModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <PreviousButton onClick={handlePrevious}>&lt;</PreviousButton> 
-                {currentMedia.video ? (
-                    <MediaColumn>
-                        <ImageWrapper>
-                            <video 
-                                src={`/${currentMedia.video}`} 
-                                fill
-                                controls
-                            />
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} titleId="media-viewer-title">
+                <ModalWrapper>
+                    <VisuallyHiddenTitle id="media-viewer-title">
+                        Visionneuse média : {currentMedia.title}
+                    </VisuallyHiddenTitle>
+                    <PreviousButton onClick={handlePrevious} aria-label="Média précédent">
+                        &lt;
+                    </PreviousButton>
+                    {currentMedia.video ? (
+                        <MediaColumn>
+                            <ImageWrapper>
+                                <video 
+                                    src={`/${currentMedia.video}`} 
+                                    fill
+                                    controls
+                                />
+                                <ModalTitle>{currentMedia.title}</ModalTitle>
+                            </ImageWrapper>
+                        </MediaColumn>
+                    ) : (
+                        <MediaColumn>
+                            <ImageWrapper>
+                                <Image 
+                                    src={`/${currentMedia.image}`}
+                                    alt={currentMedia.title} 
+                                    fill
+                                />  
+                            </ImageWrapper>
                             <ModalTitle>{currentMedia.title}</ModalTitle>
-                        </ImageWrapper>
-                    </MediaColumn>
-                ) : (
-                    <MediaColumn>
-                        <ImageWrapper>
-                            <Image 
-                                src={`/${currentMedia.image}`}
-                                alt={currentMedia.title} 
-                                fill
-                            />  
-                        </ImageWrapper>
-                        <ModalTitle>{currentMedia.title}</ModalTitle>
-                    </MediaColumn>
-                )}
-                <NextButton onClick={handleNext}>&gt;</NextButton>
-            </ImgModal>
+                        </MediaColumn>
+                    )}
+                    <NextButton onClick={handleNext} aria-label="Média suivant">
+                        &gt;
+                    </NextButton>
+                </ModalWrapper>
+            </Modal>
         </PictureFrameContainer>
     );
 };
@@ -102,7 +137,10 @@ const PhotographyFrame = styled.div`
         width: 100%;
         height: 100%;
         object-fit: cover;
-        
+    }
+    &:focus-visible {
+        outline: 3px solid #901C1C;
+        outline-offset: 2px;
     }
 `;
 
@@ -116,6 +154,17 @@ const PictureName = styled.p`
     font-size: 24px;
 `;
 
+const ModalWrapper = styled.div`
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+`;
+
 const PreviousButton = styled.button`
     background: none;
     border: none;
@@ -124,6 +173,11 @@ const PreviousButton = styled.button`
     cursor: pointer;
     color: #901C1C;
     z-index: 2;
+    &:focus-visible {
+        outline: 3px solid #901C1C;
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
 `;
 
 const NextButton = styled.button`
@@ -134,6 +188,11 @@ const NextButton = styled.button`
     cursor: pointer;
     color: #901C1C;
     z-index: 2;
+    &:focus-visible {
+        outline: 3px solid #901C1C;
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
 `;
 
 const MediaColumn = styled.div`
@@ -158,4 +217,16 @@ const ModalTitle = styled.p`
     font-size: 18px;
     color: #901C1C;
     z-index: 2;
+`;
+
+const VisuallyHiddenTitle = styled.h2`
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 `;

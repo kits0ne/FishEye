@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const UserPicture = ({ photographer }) => {
+const UserPicture = ({ photographer, decorative = false }) => {
     const profilePicture = photographer?.portrait || '/Travel_HillsideColor.jpg';
     return (
         <PPContainer>
             <Image 
                 src={`/${profilePicture}`} 
-                alt="Profile Picture" 
+                alt={decorative ? "" : `Photo de profil de ${photographer?.name || 'photographe'}`}
                 width={100} 
                 height={100} 
             />

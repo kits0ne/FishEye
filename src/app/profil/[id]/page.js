@@ -1,17 +1,11 @@
 import styled from 'styled-components';
-import CTA from '@/components/CTA'
+
 import DropDown from '@/components/DropDown'
-import LikeButton from '@/components/LikeButton'
 import Logo from '@/components/Logo'
-import PhotographerLink from '@/components/PhotographerLink'
 import PhotographerHeader from '@/components/PhotographerHeader'
-import PhotographerProfile from '@/components/PhotographerProfile'
 import PictureFrame from '@/components/PictureFrame'
-import FormTextArea from '@/components/FormTextArea'
-import UserPicture from '@/components/UserPicture'
 
 import { getAllPhotographers } from '@/app/lib/prisma-db'
-import { getPhotographer } from '@/app/lib/prisma-db'
 import { getAllMediasForPhotographer } from '@/app/lib/prisma-db'
 
 const photographers = await getAllPhotographers();

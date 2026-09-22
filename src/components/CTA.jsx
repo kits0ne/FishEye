@@ -1,10 +1,23 @@
+'use client';
+
+import { useState } from 'react';
+import Modal from './Modal';
+import ContactForm from './ContactForm';
+
 import styled from "styled-components";
 
-const CTA = ({ inscription }) => {
+const CTA = ({ inscription, photographer }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
-        <CTAButton>
-            {inscription}
-        </CTAButton>
+        <>
+            <CTAButton onClick={() => setIsModalOpen(true)}>
+                {inscription}
+            </CTAButton>
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} closeButtonColor="#ffffff" titleId="contact-title">
+                <ContactForm photographerName={photographer.name} onClose={() => setIsModalOpen(false)} />
+            </Modal>
+        </>
     );
 };
 
@@ -22,5 +35,9 @@ const CTAButton = styled.button`
     &:hover {
         background-color: #D3573C;
         color: black;
+    }
+    &:focus-visible {
+        outline: 3px solid #D3573C;
+        outline-offset: 2px;
     }
 `;

@@ -21,10 +21,14 @@ const LikeButton = ({mediaLikes, mediaId}) => {
             <LikeCount>
                 {compteur}
             </LikeCount>
-            <LikeButtonStyled onClick={handleLike}>
+            <LikeButtonStyled 
+                onClick={handleLike}
+                aria-pressed={isLiked}
+                aria-label={isLiked ? "Retirer le like" : "Ajouter un like"}
+            >
                 <Image
                     src={isLiked ? "/heart-solid-full.svg" : "/heart-regular-full.svg"}
-                    alt="Like"
+                    alt=""
                     width={24}
                     height={24}
                 />
@@ -53,4 +57,9 @@ const LikeButtonStyled = styled.button`
 background: none;
 border: none;
 cursor: pointer;
+&:focus-visible {
+    outline: 3px solid #901C1C;
+    outline-offset: 2px;
+    border-radius: 50%;
+}
 `;
