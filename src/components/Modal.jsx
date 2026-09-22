@@ -108,6 +108,9 @@ const ModalContent = styled.div`
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    max-width: 70vw;
+    max-height: 80vh;
+    overflow-y: auto;
 `;
 
 const CloseButton = styled.button`
@@ -119,6 +122,7 @@ const CloseButton = styled.button`
     font-size: 5rem;
     cursor: pointer;
     color: ${(props) => props.$closeButtonColor};
+    z-index: 1;
 
     &:focus-visible {
         outline: 3px solid #FFEA94;

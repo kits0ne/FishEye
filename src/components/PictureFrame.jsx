@@ -6,8 +6,9 @@ import Modal from '@/components/Modal'
 import { useState, useEffect, useCallback } from 'react';
 
 import LikeButton from '@/components/LikeButton'
+import { toggleLike } from "@/app/lib/actions";
 
-const PictureFrame = ({ media, allMedias, index }) => {
+const PictureFrame = ({ media, allMedias, index, onLikeChange }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentMediaIndex, setCurrentMediaIndex] = useState(index);
 
@@ -62,7 +63,7 @@ const PictureFrame = ({ media, allMedias, index }) => {
                 ) : (
                     <Image 
                         src={`/${media.image}`}
-                        alt={media.title} 
+                        alt="" 
                         width={300} 
                         height={200} 
                     />  
@@ -72,7 +73,7 @@ const PictureFrame = ({ media, allMedias, index }) => {
                 <PictureName>
                     {media.title}
                 </PictureName>
-                <LikeButton mediaLikes={media.likes} mediaId={media.id} />
+                <LikeButton likes={media.likes} entityId={media.id} onToggle={toggleLike} label="média" onLikeChange={onLikeChange}/>
             </PictureData>
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} titleId="media-viewer-title">
                 <ModalWrapper>
@@ -87,7 +88,6 @@ const PictureFrame = ({ media, allMedias, index }) => {
                             <ImageWrapper>
                                 <video 
                                     src={`/${currentMedia.video}`} 
-                                    fill
                                     controls
                                 />
                                 <ModalTitle>{currentMedia.title}</ModalTitle>
@@ -203,7 +203,7 @@ const MediaColumn = styled.div`
 const ImageWrapper = styled.div`
     position: relative;
     width: 70vw;
-    height: 61vw;
+    height: 80vh;
     overflow: hidden;
     border-radius: 5px;
     & img {

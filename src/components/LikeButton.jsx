@@ -3,28 +3,28 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { toggleLike } from "@/app/lib/actions";
 
-const LikeButton = ({mediaLikes, mediaId}) => {
+const LikeButton = ({ likes, entityId, onToggle, label = "média", onLikeChange }) => {
     const [isLiked, setIsLiked] = useState(false);
-    const [compteur, setCompteur] = useState(mediaLikes);
+    const [count, setCount] = useState(likes);
 
-    const handleLike = async() => {
-        const newCount = compteur + (isLiked ? -1 : 1);
+    const handleLike = async () => {
+        const newCount = count + (isLiked ? -1 : 1);
         setIsLiked(!isLiked);
-        setCompteur(prevCount => prevCount + (isLiked ? -1 : 1));
-        await toggleLike(mediaId, newCount);
+        setCount(newCount);
+        onLikeChange?.(entityId, newCount);
+        await onToggle(entityId, newCount);
     };
 
     return (
         <LikeSection>
             <LikeCount>
-                {compteur}
+                {count}
             </LikeCount>
             <LikeButtonStyled 
                 onClick={handleLike}
                 aria-pressed={isLiked}
-                aria-label={isLiked ? "Retirer le like" : "Ajouter un like"}
+                aria-label={isLiked ? `Retirer le like sur ce ${label}` : `Ajouter un like sur ce ${label}`}
             >
                 <Image
                     src={isLiked ? "/heart-solid-full.svg" : "/heart-regular-full.svg"}

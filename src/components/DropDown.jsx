@@ -4,15 +4,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 
-const options = ["Popularité", "Date", "Titre"];
-
-const DropDown = () => {
+const DropDown = ({ options = ["Popularité", "Date", "Titre"], onSortChange }) => {
 const [isOpen, setIsOpen] = useState(false);
 const [selected, setSelected] = useState(options[0]);
 
 const handleSelect = (option) => {
     setSelected(option);
     setIsOpen(false);
+    onSortChange?.(option);
 };
 return (
     <DropDownWrapper>
@@ -42,12 +41,12 @@ return (
             .filter((option) => option !== selected)
             .map((option) => (
                 <Option 
-                key={option} 
-                onClick={() => handleSelect(option)} 
-                role="option"
-                tabIndex={0}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelect(option); }}
-                aria-selected={false}
+                    key={option} 
+                    onClick={() => handleSelect(option)} 
+                    role="option"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelect(option); }}
+                    aria-selected={option === selected}
                 >
                     {option}
                 </Option>
@@ -79,6 +78,8 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 cursor: pointer;
+width: 100%;
+box-sizing: border-box;
 &:focus-visible {
     outline: 3px solid #D3573C;
     outline-offset: 2px;
@@ -92,7 +93,7 @@ transition: transform 0.2s ease;
 
 const OptionsList = styled.div`
 position: absolute;
-top: -1;
+top: 100%;
 left: 0;
 width: 100%;
 background-color: #901c1c;
