@@ -1,37 +1,61 @@
-FishEye
+# FishEye
 
-Plateforme web présentant des photographes freelance et leurs portfolios. Projet réalisé dans le cadre du parcours Développeur Web d'OpenClassrooms — Créez une plateforme de photographes avec React.
+Plateforme web présentant des photographes freelance et leurs portfolios. Projet réalisé dans le cadre du parcours **Développeur Web** d'OpenClassrooms — *Créez une plateforme de photographes avec React*.
 
-✨ Fonctionnalités
-Page d'accueil : liste de tous les photographes (nom, localisation, tagline, prix, portrait).
-Page photographe : galerie de photos et vidéos, triable par popularité, date ou titre.
-Likes : chaque média peut être liké individuellement ; le total de likes du photographe est affiché dans un encart dédié.
-Lightbox : consultation d'un média en grand format, navigable au clavier (flèches, Échap) et à la souris.
-Formulaire de contact : modale accessible avec validation native, résultat affiché en console.
-Accessibilité : navigation clavier complète, structure sémantique, attributs ARIA, focus trap et restauration du focus dans les modales, aria-live pour les changements dynamiques (tri, likes).
-🛠️ Stack technique
-Next.js (App Router)
-React
-Prisma avec l'adaptateur better-sqlite3
-styled-components
-Base de données SQLite
-📋 Prérequis
-Node.js (version 18 ou supérieure recommandée)
-npm
-🚀 Installation
-Cloner le dépôt :
-bash
-   git clone https://github.com/<votre-pseudo>/<nom-du-repo>.git
-   cd <nom-du-repo>
-Installer les dépendances :
-bash
-   npm install
-Générer le client Prisma (normalement automatique via postinstall, sinon) :
-bash
-   npx prisma generate
-Appliquer les migrations pour créer le schéma de la base de données :
-bash
-   npx prisma migrate dev
+## ✨ Fonctionnalités
+
+- **Page d'accueil** : liste de tous les photographes (nom, localisation, tagline, prix, portrait).
+- **Page photographe** : galerie de photos et vidéos, triable par popularité, date ou titre.
+- **Likes** : chaque média peut être liké individuellement ; le total de likes du photographe est affiché dans un encart dédié.
+- **Lightbox** : consultation d'un média en grand format, navigable au clavier (flèches, Échap) et à la souris.
+- **Formulaire de contact** : modale accessible avec validation native, résultat affiché en console.
+- **Accessibilité** : navigation clavier complète, structure sémantique, attributs ARIA, focus trap et restauration du focus dans les modales, `aria-live` pour les changements dynamiques (tri, likes).
+
+## 🛠️ Stack technique
+
+- [Next.js](https://nextjs.org/) (App Router)
+- [React](https://react.dev/)
+- [Prisma](https://www.prisma.io/) avec l'adaptateur [`better-sqlite3`](https://github.com/WiseLibs/better-sqlite3)
+- [styled-components](https://styled-components.com/)
+- Base de données [SQLite](https://www.sqlite.org/)
+
+## 📋 Prérequis
+
+- [Node.js](https://nodejs.org/) (version 18 ou supérieure recommandée)
+- npm
+
+## 🚀 Installation
+
+**1. Cloner le dépôt :**
+
+```bash
+git clone https://github.com/<votre-pseudo>/<nom-du-repo>.git
+cd <nom-du-repo>
+```
+
+**2. Installer les dépendances :**
+
+```bash
+npm install
+```
+
+**3. Générer le client Prisma** (normalement automatique via `postinstall`, sinon) :
+
+```bash
+npx prisma generate
+```
+
+**4. Appliquer les migrations** pour créer le schéma de la base de données :
+
+```bash
+npx prisma migrate dev
+```
+
+> La base `dev.db` fournie dans ce dépôt contient déjà des données de démonstration (photographes et médias fictifs). Si vous repartez d'une base vide, pensez à l'alimenter avant de lancer l'application.
+
+## ▶️ Lancer le projet
+
+### Mode développement
 
 La base dev.db fournie dans ce dépôt contient déjà des données de démonstration (photographes et médias fictifs). Si vous repartez d'une base vide, pensez à l'alimenter avant de lancer l'application.
 
@@ -40,13 +64,20 @@ Mode développement
 bash
 npm run dev
 
-L'application est accessible sur http://localhost:3000.
+```
 
-Mode production (build local)
-bash
+L'application est accessible sur [http://localhost:3000](http://localhost:3000).
+
+### Mode production (build local)
+
+```bash
 npm run build
 npm run start
-📁 Structure du projet
+```
+
+## 📁 Structure du projet
+
+```
 src/
 ├── app/
 │   ├── page.jsx                # Page d'accueil
@@ -58,20 +89,23 @@ src/
 ├── components/                 # Composants React réutilisables
 prisma/
 └── schema.prisma               # Schéma de la base de données
-♿ Accessibilité
+```
+
+## ♿ Accessibilité
 
 Le projet a fait l'objet d'une démarche d'accessibilité approfondie tout au long du développement :
 
-Éléments HTML sémantiques (<header>, <main>, <footer>, <article>, <nav>) plutôt que des <div> génériques.
-Attributs ARIA sur les composants personnalisés (menu de tri en pattern listbox, modales en role="dialog").
-Navigation intégralement possible au clavier : Tab, Entrée/Espace, Échap, flèches directionnelles dans la lightbox.
-Focus trap et restauration du focus dans les fenêtres modales.
-Textes alternatifs pertinents sur les images (vides pour les éléments décoratifs, descriptifs pour les images informatives).
-Rapport d'audit réalisé avec WAVE (WebAIM) : 0 erreur détectée.
-⚠️ Limitation connue
+- Éléments HTML sémantiques (`<header>`, `<main>`, `<footer>`, `<article>`, `<nav>`) plutôt que des `<div>` génériques.
+- Attributs ARIA sur les composants personnalisés (menu de tri en pattern `listbox`, modales en `role="dialog"`).
+- Navigation intégralement possible au clavier : `Tab`, `Entrée`/`Espace`, `Échap`, flèches directionnelles dans la lightbox.
+- Focus trap et restauration du focus dans les fenêtres modales.
+- Textes alternatifs pertinents sur les images (vides pour les éléments décoratifs, descriptifs pour les images informatives).
+- Rapport d'audit réalisé avec [WAVE](https://wave.webaim.org/) (WebAIM) : 0 erreur détectée.
+
+## ⚠️ Limitation connue
 
 L'application utilise SQLite en fichier local, ce qui n'est pas garanti de fonctionner de façon fiable sur une plateforme serverless comme Vercel (système de fichiers éphémère). Pour un déploiement en production durable, une migration vers une base de données compatible serverless (ex. Turso, Vercel Postgres) serait recommandée.
 
-📄 Licence
+## 📄 Licence
 
 Projet réalisé à des fins pédagogiques dans le cadre de la formation OpenClassrooms.
