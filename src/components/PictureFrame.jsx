@@ -43,15 +43,8 @@ const PictureFrame = ({ media, allMedias, index, onLikeChange }) => {
     return (
         <PictureFrameContainer>
             <PhotographyFrame 
+                type="button"
                 onClick={() =>{ setCurrentMediaIndex(index); setIsModalOpen(true);}}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        setCurrentMediaIndex(index);
-                        setIsModalOpen(true);
-                    }
-                }}
                 aria-label={`Agrandir ${media.title}`}
             >
                 {media.video ? (
@@ -125,11 +118,15 @@ const PictureFrameContainer = styled.div`
     flex-direction: column;
 `;
 
-const PhotographyFrame = styled.div`
+const PhotographyFrame = styled.button`
     width: 100%;
     height: 100%;
     border-radius: 5px;
     overflow: hidden;
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
     & img {
         width: 100%;
         height: 100%;
