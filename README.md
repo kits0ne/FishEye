@@ -61,7 +61,7 @@ La base dev.db fournie dans ce dépôt contient déjà des données de démonstr
 
 ▶️ Lancer le projet
 Mode développement
-bash
+```bash
 npm run dev
 
 ```
