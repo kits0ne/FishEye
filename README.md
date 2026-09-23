@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+FishEye
 
-## Getting Started
+Plateforme web présentant des photographes freelance et leurs portfolios. Projet réalisé dans le cadre du parcours Développeur Web d'OpenClassrooms — Créez une plateforme de photographes avec React.
 
-First, run the development server:
+✨ Fonctionnalités
+Page d'accueil : liste de tous les photographes (nom, localisation, tagline, prix, portrait).
+Page photographe : galerie de photos et vidéos, triable par popularité, date ou titre.
+Likes : chaque média peut être liké individuellement ; le total de likes du photographe est affiché dans un encart dédié.
+Lightbox : consultation d'un média en grand format, navigable au clavier (flèches, Échap) et à la souris.
+Formulaire de contact : modale accessible avec validation native, résultat affiché en console.
+Accessibilité : navigation clavier complète, structure sémantique, attributs ARIA, focus trap et restauration du focus dans les modales, aria-live pour les changements dynamiques (tri, likes).
+🛠️ Stack technique
+Next.js (App Router)
+React
+Prisma avec l'adaptateur better-sqlite3
+styled-components
+Base de données SQLite
+📋 Prérequis
+Node.js (version 18 ou supérieure recommandée)
+npm
+🚀 Installation
+Cloner le dépôt :
+bash
+   git clone https://github.com/<votre-pseudo>/<nom-du-repo>.git
+   cd <nom-du-repo>
+Installer les dépendances :
+bash
+   npm install
+Générer le client Prisma (normalement automatique via postinstall, sinon) :
+bash
+   npx prisma generate
+Appliquer les migrations pour créer le schéma de la base de données :
+bash
+   npx prisma migrate dev
 
-```bash
+La base dev.db fournie dans ce dépôt contient déjà des données de démonstration (photographes et médias fictifs). Si vous repartez d'une base vide, pensez à l'alimenter avant de lancer l'application.
+
+▶️ Lancer le projet
+Mode développement
+bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+L'application est accessible sur http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Mode production (build local)
+bash
+npm run build
+npm run start
+📁 Structure du projet
+src/
+├── app/
+│   ├── page.jsx                # Page d'accueil
+│   ├── profil/[id]/page.jsx    # Page photographe
+│   ├── loading.jsx / error.jsx # États de chargement et d'erreur
+│   └── lib/
+│       ├── prisma-db.js        # Fonctions d'accès aux données
+│       └── actions.js          # Server actions (likes)
+├── components/                 # Composants React réutilisables
+prisma/
+└── schema.prisma               # Schéma de la base de données
+♿ Accessibilité
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Le projet a fait l'objet d'une démarche d'accessibilité approfondie tout au long du développement :
 
-## Learn More
+Éléments HTML sémantiques (<header>, <main>, <footer>, <article>, <nav>) plutôt que des <div> génériques.
+Attributs ARIA sur les composants personnalisés (menu de tri en pattern listbox, modales en role="dialog").
+Navigation intégralement possible au clavier : Tab, Entrée/Espace, Échap, flèches directionnelles dans la lightbox.
+Focus trap et restauration du focus dans les fenêtres modales.
+Textes alternatifs pertinents sur les images (vides pour les éléments décoratifs, descriptifs pour les images informatives).
+Rapport d'audit réalisé avec WAVE (WebAIM) : 0 erreur détectée.
+⚠️ Limitation connue
 
-To learn more about Next.js, take a look at the following resources:
+L'application utilise SQLite en fichier local, ce qui n'est pas garanti de fonctionner de façon fiable sur une plateforme serverless comme Vercel (système de fichiers éphémère). Pour un déploiement en production durable, une migration vers une base de données compatible serverless (ex. Turso, Vercel Postgres) serait recommandée.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📄 Licence
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Projet réalisé à des fins pédagogiques dans le cadre de la formation OpenClassrooms.
