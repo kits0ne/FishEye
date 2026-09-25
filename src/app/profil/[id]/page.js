@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { notFound } from 'next/navigation';
 
 import Logo from '@/components/Logo'
 import PhotographerHeader from '@/components/PhotographerHeader'
@@ -27,6 +28,11 @@ export default async function PhotographerPage({ params }) {
     const { id } = await params;
     const photographer = photographers.find(p => p.id === Number(id));
 
+    // Id inconnu ou invalide : affiche la page 404 au lieu de planter
+    if (!photographer) {
+        notFound();
+    }
+
     const medias = await getAllMediasForPhotographer(photographer.id);
 
     return (
@@ -34,8 +40,10 @@ export default async function PhotographerPage({ params }) {
             <IndexBanner>
                 <LogoWrapper><Logo /></LogoWrapper>
             </IndexBanner>
-            <PhotographerHeader photographer={photographer} />
-            <PhotographerContent photographer={photographer} medias={medias} />
+            <PhotographerMain>
+                <PhotographerHeader photographer={photographer} />
+                <PhotographerContent photographer={photographer} medias={medias} />
+            </PhotographerMain>
         </PhotographerPageContainer>
     );
 }
@@ -50,7 +58,12 @@ const LogoWrapper = styled.div`
     width: 200px;
 `;
 
-const IndexBanner = styled.div`
+const PhotographerMain = styled.main`
+    display: flex;
+    flex-direction: column;
+`;
+
+const IndexBanner = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;

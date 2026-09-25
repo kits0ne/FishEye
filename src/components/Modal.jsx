@@ -125,7 +125,7 @@ const CloseButton = styled.button`
     z-index: 1;
 
     &:focus-visible {
-        outline: 3px solid #FFEA94;
+        outline: 3px solid #312E2E;
         outline-offset: 2px;
         border-radius: 4px;
     }

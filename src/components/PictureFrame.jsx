@@ -55,10 +55,10 @@ const PictureFrame = ({ media, allMedias, index, onLikeChange }) => {
                         aria-hidden="true"
                     />
                 ) : (
-                    <Image 
+                    <Image
                         src={`/${media.image}`}
-                        alt="" 
-                        width={300} 
+                        alt={media.title}
+                        width={300}
                         height={200} 
                     />  
                 )}
@@ -74,15 +74,16 @@ const PictureFrame = ({ media, allMedias, index, onLikeChange }) => {
                     <VisuallyHiddenTitle id="media-viewer-title">
                         Visionneuse média : {currentMedia.title}
                     </VisuallyHiddenTitle>
-                    <PreviousButton onClick={handlePrevious} aria-label="Image précédente">
+                    <PreviousButton onClick={handlePrevious} aria-label="Média précédent">
                         &lt;
                     </PreviousButton>
                     {currentMedia.video ? (
                         <MediaColumn>
                             <ImageWrapper>
                                 <video 
-                                    src={`/${currentMedia.video}`} 
+                                    src={`/${currentMedia.video}`}
                                     controls
+                                    aria-label={currentMedia.title}
                                 />
                             </ImageWrapper>
                             <ModalTitle>{currentMedia.title}</ModalTitle>
@@ -92,7 +93,7 @@ const PictureFrame = ({ media, allMedias, index, onLikeChange }) => {
                             <ImageWrapper>
                                 <Image 
                                     src={`/${currentMedia.image}`}
-                                    alt=""
+                                    alt={currentMedia.title}
                                     fill
                                     sizes="(max-width: 900px) 70vw, 900px"
                                 />  
@@ -100,7 +101,7 @@ const PictureFrame = ({ media, allMedias, index, onLikeChange }) => {
                             <ModalTitle>{currentMedia.title}</ModalTitle>
                         </MediaColumn>
                     )}
-                    <NextButton onClick={handleNext} aria-label="Image suivante">
+                    <NextButton onClick={handleNext} aria-label="Média suivant">
                         &gt;
                     </NextButton>
                 </ModalWrapper>

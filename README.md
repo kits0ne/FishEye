@@ -57,13 +57,8 @@ npx prisma migrate dev
 
 ### Mode développement
 
-La base dev.db fournie dans ce dépôt contient déjà des données de démonstration (photographes et médias fictifs). Si vous repartez d'une base vide, pensez à l'alimenter avant de lancer l'application.
-
-▶️ Lancer le projet
-Mode développement
 ```bash
 npm run dev
-
 ```
 
 L'application est accessible sur [http://localhost:3000](http://localhost:3000).
@@ -81,8 +76,9 @@ npm run start
 src/
 ├── app/
 │   ├── page.jsx                # Page d'accueil
-│   ├── profil/[id]/page.jsx    # Page photographe
+│   ├── profil/[id]/page.js     # Page photographe
 │   ├── loading.jsx / error.jsx # États de chargement et d'erreur
+│   ├── not-found.jsx           # Page 404 (photographe inexistant)
 │   └── lib/
 │       ├── prisma-db.js        # Fonctions d'accès aux données
 │       └── actions.js          # Server actions (likes)
@@ -95,11 +91,12 @@ prisma/
 
 Le projet a fait l'objet d'une démarche d'accessibilité approfondie tout au long du développement :
 
-- Éléments HTML sémantiques (`<header>`, `<main>`, `<footer>`, `<article>`, `<nav>`) plutôt que des `<div>` génériques.
+- Éléments HTML sémantiques (`<header>`, `<main>`, `<footer>`, `<article>`, `<form>`, `<button>`) plutôt que des `<div>` génériques.
 - Attributs ARIA sur les composants personnalisés (menu de tri en pattern `listbox`, modales en `role="dialog"`).
 - Navigation intégralement possible au clavier : `Tab`, `Entrée`/`Espace`, `Échap`, flèches directionnelles dans la lightbox.
 - Focus trap et restauration du focus dans les fenêtres modales.
-- Textes alternatifs pertinents sur les images (vides pour les éléments décoratifs, descriptifs pour les images informatives).
+- Textes alternatifs sur toutes les images et vidéos : titre du média pour la galerie et la lightbox, nom du photographe pour la photo de profil. Les éléments purement décoratifs (icônes, logo dans un lien déjà nommé) ont un `alt` vide. Sur l'accueil, le portrait se trouve dans un lien qui contient déjà le nom du photographe : il est traité comme décoratif pour éviter que le lecteur d'écran lise le nom deux fois (technique WCAG H2).
+- Contours de focus visibles et contrastés sur tous les éléments interactifs.
 - Rapport d'audit réalisé avec [WAVE](https://wave.webaim.org/) (WebAIM) : 0 erreur détectée.
 
 ## ⚠️ Limitation connue

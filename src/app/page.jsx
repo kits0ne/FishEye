@@ -22,7 +22,7 @@ export default function Home() {
     );
 }
 
-const IndexContainer = styled.header`
+const IndexContainer = styled.div`
     display: flex;
     flex-direction: column;
 `;
@@ -31,7 +31,7 @@ const LogoWrapper = styled.div`
     width: 200px;
 `;
 
-const IndexBanner = styled.div`
+const IndexBanner = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,7 +44,7 @@ const IndexTitle = styled.h1`
     color: #901C1C;
 `;
 
-const PhotographersPresentationGrid = styled.div`
+const PhotographersPresentationGrid = styled.main`
     padding: 5rem 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));

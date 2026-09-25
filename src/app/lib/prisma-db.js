@@ -46,15 +46,3 @@ export const updateNumberOfLikes = async (mediaId, newNumberOfLikes) => {
         throw new Error("Impossible de mettre à jour le nombre de likes.");
     }
 };
-
-export const updatePhotographerLikes = async (photographerId, newNumberOfLikes) => {
-    try {
-        return await prisma.photographer.update({
-            where: { id: photographerId },
-            data: { likes: newNumberOfLikes },
-        });
-    } catch (error) {
-        console.error("Erreur lors de la mise à jour des likes du photographe :", error);
-        throw new Error("Impossible de mettre à jour le nombre de likes du photographe.");
-    }
-};
