@@ -6,6 +6,10 @@ import { getAllPhotographers } from '@/app/lib/prisma-db'
 
 const photographers = await getAllPhotographers();
 
+export const metadata = {
+    title: 'Nos photographes | FishEye',
+};
+
 export default function Home() {
     return (
         <IndexContainer>
@@ -13,7 +17,7 @@ export default function Home() {
                 <LogoWrapper><Logo /></LogoWrapper>
                 <IndexTitle>Nos photographes</IndexTitle>
             </IndexBanner>
-            <PhotographersPresentationGrid>
+            <PhotographersPresentationGrid id="main-content" tabIndex={-1}>
                 {photographers.map((photographer) => (
                     <PhotographerLink key={photographer.id} photographer={photographer} />
                 ))}

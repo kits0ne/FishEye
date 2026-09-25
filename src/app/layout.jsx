@@ -1,6 +1,7 @@
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import StyledComponentsRegistry from "@/app/lib/registry";
+import SkipLink from "@/components/SkipLink";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -17,6 +18,7 @@ export default async function RootLayout({ children }) {
         <html lang="fr" className={dmSans.variable}>
           <body>
             <StyledComponentsRegistry>
+              <SkipLink />
               {children}
             </StyledComponentsRegistry>
           </body>

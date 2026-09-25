@@ -40,7 +40,7 @@ export default async function PhotographerPage({ params }) {
             <IndexBanner>
                 <LogoWrapper><Logo /></LogoWrapper>
             </IndexBanner>
-            <PhotographerMain>
+            <PhotographerMain id="main-content" tabIndex={-1}>
                 <PhotographerHeader photographer={photographer} />
                 <PhotographerContent photographer={photographer} medias={medias} />
             </PhotographerMain>

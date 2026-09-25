@@ -63,6 +63,11 @@ textarea {
   resize: vertical;
 }
 
+/* Le <main> reçoit le focus via le lien d'évitement : pas de contour sur toute la zone */
+main:focus {
+  outline: none;
+}
+
 /* Styles globaux de l'application */
 
 :root {

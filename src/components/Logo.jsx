@@ -5,13 +5,11 @@ import Link from "next/link";
 const Logo = () => {
     return (
         <HomeLink>
-            <PhotographerLink 
-                href="/"
-                aria-label="Retour à la page d'accueil"
-            >
-                <LogoImg 
-                    src="/Logo.png" 
-                    alt="" 
+            <PhotographerLink href="/">
+                {/* Le alt donne son nom au lien : c'est la seule image qu'il contient */}
+                <LogoImg
+                    src="/Logo.png"
+                    alt="FishEye - Retour à la page d'accueil"
                     width={100} 
                     height={100} 
                 />
